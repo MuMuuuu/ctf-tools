@@ -1,5 +1,10 @@
 #!/usr/bin/python3
+
 from string import ascii_lowercase
+
+"""
+Reference : https://www.dcode.fr/t9-cipher
+"""
 
 inp = input("Input the data like this x-xxx-xx-xxxx-xx-x : \n").strip().split("-")
 alpha = list("_" + ascii_lowercase + "_")
