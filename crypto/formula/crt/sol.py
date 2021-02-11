@@ -1,6 +1,8 @@
 #!/usr/bin/python3
-from gmpy2 import *
+
+from gmpy2 import invert , iroot
 from functools import reduce
+from Crypto.Util.number import long_to_bytes
 
 def CRT(r, mod):
     M = reduce(lambda x,y:x*y, mod)
