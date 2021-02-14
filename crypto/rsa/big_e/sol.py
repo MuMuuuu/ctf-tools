@@ -7,6 +7,6 @@ n =
 c = 
 e = 
 
-d = attack(e , n)[1]
+d = attack(e , n)
 
-print(long_to_bytes(pow(c , d , n)).decode("laint-1"))
+print(long_to_bytes(pow(c , d , n)).decode("latin-1"))
