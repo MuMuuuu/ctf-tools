@@ -2,10 +2,16 @@
 from gmpy2 import *
 from Crypto.Util.number import *
 
+def parser(s:str):
+    return list(map(int , s.strip().split(" * ")))
+
+
 n = 
 e = 
 c = 
-primes = []
+
+a = """ """ # input factor result
+primes = parser(a)
 
 phi = 1
 for i in primes:
