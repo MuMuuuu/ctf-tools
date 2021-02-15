@@ -3,6 +3,10 @@ from gmpy2 import *
 from functools import reduce
 import math
 
+"""
+https://tailcall.net/blog/cracking-randomness-lcgs/
+"""
+
 def _crack_unknown_increment(states, modulus, multiplier):
     increment = (states[1] - states[0]*multiplier) % modulus
     return modulus, multiplier, increment
