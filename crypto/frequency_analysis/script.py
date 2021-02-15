@@ -7,7 +7,7 @@ englishLetterFreq = ' ETAOINSHRDLCUMWFGYPBVKJXQZ'
 
 mapping = {}
 
-for i,t in enumerate(freq):
+for i , t in enumerate(freq):
     if i < 27:
         mapping[t] = englishLetterFreq[i]
 

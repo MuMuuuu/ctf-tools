@@ -12,6 +12,7 @@ def pollard(n):
         b += 1
 
 n =
+
 primes= []
 
 while(pollard(n) > 1):
@@ -22,4 +23,5 @@ phi = 1
 for i in primes:
     phi *= (i - 1)
 
+print(f"phi = {phi}")
 
