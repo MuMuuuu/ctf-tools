@@ -4,7 +4,7 @@ from functools import reduce
 import math
 
 """
-https://tailcall.net/blog/cracking-randomness-lcgs/
+https://github.com/Macmod/lcgcrack/blob/master/lcgcrackmultiples.py
 """
 
 def _crack_unknown_increment(states, modulus, multiplier):
