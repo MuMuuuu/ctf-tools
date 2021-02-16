@@ -1,26 +1,24 @@
 #!/usr/bin/python3
 
-from gmpy2 import isqrt
+from gmpy2 import isqrt , is_square
 
 def fermat(n):
-    t0 = isqrt(n) + 1
-    counter = 0
-    t = t0 + counter
-    tmp = isqrt(pow(t , 2) - n)
+    a = isqrt(n) + 1
 
-    while(pow(tmp , 2) != pow(t , 2) - n):
-        counter += 1
-        t = t0 + counter
-        tmp = isqrt(pow(t , 2) - n)
+    while not is_square(pow(a , 2) - n):
+        a += 1
 
-    p = t + tmp
-    q = t - tmp
+    b = isqrt(pow(a , 2) - n)
+    p = a + b
+    q = a - b
+
+    assert p * q == n
 
     return p , q
 
-n = int( ) # input n
+n = int(input("n = ")) # input n
 
 p , q = fermat(n)
 
-print(f"p = {p}\nq = {q}")
+print(f"n = {n}\np = {p}\nq = {q}")
 
