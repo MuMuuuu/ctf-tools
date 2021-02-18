@@ -4,10 +4,10 @@
 My SageMath is under python2
 """
 
-from sage.all import *
 from Crypto.Util.number import long_to_bytes
 
 lst = continued_fraction(Integer(e) / Integer(n))
+
 conv = lst.convergents()
 
 e = 
