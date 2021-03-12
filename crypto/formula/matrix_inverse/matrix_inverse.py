@@ -33,7 +33,7 @@ def input_process():
 
     return arr , mod
 
-def num_to_str(ls:list , alpha:str , row:int , col:int):
+def num_to_str(ls:list , alpha:str):
     assert len(np.array(ls).shape) == 1 , "list should be 1-demensial"
 
     for i in range(len(ls)):
@@ -41,7 +41,7 @@ def num_to_str(ls:list , alpha:str , row:int , col:int):
 
     return ls
 
-def str_to_num(ls:list , alpha:str , row:int , col:int):
+def str_to_num(ls:list , alpha:str):
     assert len(np.array(ls).shape) == 1 , "list should be 1-demensial"
 
     for i in range(len(ls)):
