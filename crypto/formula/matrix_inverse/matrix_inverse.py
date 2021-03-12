@@ -36,18 +36,20 @@ def input_process():
 def num_to_str(ls:list , alpha:str):
     assert len(np.array(ls).shape) == 1 , "list should be 1-demensial"
 
+    res = []
     for i in range(len(ls)):
-        ls[i] = alpha[ls[i]]
+        res.append(alpha[ls[i]])
 
-    return ls
+    return res
 
 def str_to_num(ls:list , alpha:str):
     assert len(np.array(ls).shape) == 1 , "list should be 1-demensial"
 
+    res = []
     for i in range(len(ls)):
-        ls[i] = alpha.index(i)
+        res.append(alpha.index(ls[i]))
 
-    return ls
+    return res
 
 def matrix_inverse(arr:np.ndarray , mod:int):
     assert mod > 0 , "mod should greater than 0"
