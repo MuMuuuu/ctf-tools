@@ -1,5 +1,7 @@
 #!/usr/bin/python
 
+from subprocess import check_output
+
 newmap={
 2: "PostFail",
 4: "a",
@@ -52,13 +54,19 @@ newmap={
 80: "LetfArrow"
 }
 
-f = open(raw_input("Input hex file : ").strip())
+name = raw_input("Input pcap file : ").strip()
+inp = check_output(["tshark" , "-r" , name , "-T" , "fields" , "-e" , "usb.capdata"]).strip().replace(":" , "").replace("\n" , "")
+inp_ls = [inp[i : i + 16] for i in range(0 , len(inp) , 16)]
 
 flag = ""
 
-for line in f:
-    dec = line.strip().decode("hex").replace("\x00" , "")
-    val = ord(dec[-1])
+for line in inp_ls:
+    dec = line.strip().replace("00" , "").decode("hex")
+
+    try:
+        val = ord(dec[-1])
+    except:
+        continue
 
     if val in newmap:
         now = newmap[val]
@@ -66,6 +74,8 @@ for line in f:
             flag += now
         elif now == "del":
             del flag[-1]
+    else:
+        print("Unexpect val : {}".format(val))
 
 print(flag)
 
