@@ -19,11 +19,11 @@ c2 =
 _ , s1 , s2 = egcd(e1 , e2)
 
 if s1 < 0: 
-    s1 = abs(s[1])
+    s1 = abs(s1)
     c1 = invert(c1 , n)
 
 elif s2 < 0:
-    s2 = abs(s[2])
+    s2 = abs(s2)
     c2 = invert(c2 , n)
 
 flag = pow(c1 , s1 , n) * pow(c2 , s2 , n) % n
