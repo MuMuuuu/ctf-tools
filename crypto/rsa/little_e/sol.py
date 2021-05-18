@@ -6,14 +6,19 @@ n =
 e = 
 c = 
 
-
 def small(e , n , c):
     for k in range(20000000):
-        if iroot(c + n * k , e)[1]:
+        res = iroot(c + n * k , e)
+        if res[1]:
             print("Success ! \n")
-            return iroot(c + n * k , 3)
+            return res[0]
 
 flag = small(e , n , c)
-print(flag)
 
-print(long_to_bytes(flag))
+if flag == None:
+    print("Not find little e")
+    exit()
+else:
+    print(flag)
+    print(long_to_bytes(flag))
+
