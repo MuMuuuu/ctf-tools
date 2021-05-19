@@ -42,12 +42,12 @@ def num_to_str(ls:list , alpha:str):
 
     return res
 
-def str_to_num(ls:list , alpha:str):
+def str_to_num(s:str,list , alpha:str):
     assert len(np.array(ls).shape) == 1 , "list should be 1-demensial"
 
     res = []
     for i in range(len(ls)):
-        res.append(alpha.index(ls[i]))
+        res.append(alpha.index(s[i]))
 
     return res
 
