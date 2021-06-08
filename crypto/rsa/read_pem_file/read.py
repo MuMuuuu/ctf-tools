@@ -14,10 +14,8 @@ for i in argv[1:]:
 
         print("=" * 5 + " {} ".format(j) + "=" * 5)
         print(f"n = {f.n}")
-        try:
-            print(f"d = {f.d}")
-            print(f"e = {f.e}")
-        except:
-            print(f"e = {f.e}")
+        print(f"e = {f.e}")
 
+        if f.has_private():
+            print(f"d = {f.d}")
 
