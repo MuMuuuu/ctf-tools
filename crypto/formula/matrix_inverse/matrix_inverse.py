@@ -82,11 +82,27 @@ def hill_decrypt(key:list , cipher:str , alpha=printable[:62]+"_"):
 
     return "".join(plaint)
 
-if __name__ == "__main__" :
-    # Test data
-    alpha = "ABCDEFGHIJKLMNOPQRSTUVWXYZ_.,?!"
-    cipher = "_VGUPIMW!S_TBBS"
-    key = [21 , 11 , 10,  27,  6 , 16 , 15 , 9 , 5]
+def known_plain(pt:str , ct:str , alpha:str , key_len:int):
+    assert len(pt) == len(ct) , "Error with different length"
 
-    print(hill_decrypt(key , cipher , alpha))
+    mod = len(alpha)
+    pt = str_to_num(pt , alpha)
+    ct = str_to_num(ct , alpha)
+
+    ct = list2arr(ct , key_len , key_len)
+    pt = list2arr(pt , key_len , key_len)
+    p_inverse = matrix_inverse(pt , mod)
+    key = ct.dot(p_inverse)
+
+    return key
+    
+if __name__ == "__main__" :
+    alpha = "ABCDEFGHIJKLMNOPQRSTUVWXYZ_.,?!"
+    c1 = "X.LEGIVPJ"
+    p1 = "I_HATE_TO"
+    c2 = "DBWCFIBWF"
+
+    key = known_plain(p1 , c1 , alpha , 3).flatten().tolist()
+
+    print(hill_decrypt(key , c2 , alpha))
 
