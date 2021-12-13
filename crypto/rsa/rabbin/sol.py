@@ -19,8 +19,5 @@ rr = n - r
 s = (yq * q * mp + yp * p * mq) % n
 ss = n - s
 
-print(long_to_bytes(r))
-print(long_to_bytes(rr))
-print(long_to_bytes(s))
-print(long_to_bytes(ss))
+print("\n".join(map(lambda i : long_to_bytes(i).decode("latin-1") . [r , rr , s , ss])))
 
