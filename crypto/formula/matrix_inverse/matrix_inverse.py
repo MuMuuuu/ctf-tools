@@ -5,16 +5,41 @@ https://math.stackexchange.com/questions/2686150/inverse-of-a-modular-matrix
 """
 
 from string import printable
-import gmpy2
 import numpy as np
+
+def gcd(a:int , b:int):
+    if(b == 0): return a
+    else: return gcd(b , a % b)
+
+def inverse(s , t):
+    """
+    The inverse of :data:`u` *mod* :data:`v`.
+    """
+
+    if(gcd(s , t) - 1):
+        raise ZeroDivisionError("None of invert exist")
+
+    s3, t3 = s , t
+    s1, t1 = 1, 0
+    while t3 > 0:
+        q = s3 // t3
+        s1, t1 = t1, s1 - t1 * q
+        s3, t3 = t3, s3 - t3 * q
+    while s1<0:
+        s1 = s1 + t
+    return s1
 
 def list2arr(ls:list , row:int , col:int):
     return np.array(ls).reshape(row , col)
 
 def input_process():
+    """
+    Use input to get array
+    End with EOF
+    """
+
     ls = []
 
-    print("Input the array , end with Ctrl-d or empty newline")
     while(True):
         try:
             ls.append(list(map(int , input().strip().split(" "))))
@@ -57,7 +82,7 @@ def matrix_inverse(arr:np.ndarray , mod:int):
     col , row = arr.shape # only square matrix is invertable
 
     try:
-        inv = int(gmpy2.invert(det , mod))
+        inv = int(inverse(det , mod)) # TODO change to other invert
     except:
         raise ZeroDivisionError("No inverse exist")
 
