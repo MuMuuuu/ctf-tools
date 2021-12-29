@@ -17,7 +17,7 @@ def inverse(s , t):
     """
 
     if(gcd(s , t) - 1):
-        raise ZeroDivisionError("None of invert exist")
+        raise ZeroDivisionError
 
     s3, t3 = s , t
     s1, t1 = 1, 0
