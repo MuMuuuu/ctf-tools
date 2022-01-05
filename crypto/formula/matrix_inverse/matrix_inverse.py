@@ -32,6 +32,9 @@ def inverse(s , t):
 def list2arr(ls:list , row:int , col:int):
     return np.array(ls).reshape(row , col)
 
+def arr2list(arr:np.ndarray):
+    return arr.flatten().tolist()
+
 def input_process():
     """
     Use input to get array
@@ -55,7 +58,7 @@ def input_process():
 
     return arr , mod
 
-def num_to_str(ls:list , alpha:str):
+def num2str(ls:list , alpha:str):
     assert len(np.array(ls).shape) == 1 , "list should be 1-demensial"
 
     res = []
@@ -64,7 +67,7 @@ def num_to_str(ls:list , alpha:str):
 
     return res
 
-def str_to_num(s:str , alpha:str):
+def str2num(s:str , alpha:str):
     assert len(np.array(list(s)).shape) == 1 , "list should be 1-demensial"
 
     res = []
@@ -92,18 +95,18 @@ def matrix_inverse(arr:np.ndarray , mod:int):
     
     return res
 
-def hill_decrypt(key:list , cipher:str , alpha=printable[:62]+"_"):
+def hill_decrypt(key , cipher:str , alpha=printable[:62]+"_"):
     mod = len(alpha)
     row = col = int(pow(len(key) , 0.5))
 
     key = list2arr(key , row , col)
     key = matrix_inverse(key , mod)
 
-    cipher = str_to_num(cipher , alpha)
+    cipher = str2num(cipher , alpha)
     cipher = list2arr(cipher , row , len(cipher) // row)
 
-    res = key.dot(cipher) % mod
-    plaint = num_to_str(res.flatten().tolist() , alpha)
+    res = np.mod(np.dot(cipher , key) , len(alpha))
+    plaint = num2str(res.flatten().tolist() , alpha)
 
     return "".join(plaint)
 
@@ -111,8 +114,8 @@ def known_plain(pt:str , ct:str , alpha:str , key_len:int):
     assert len(pt) == len(ct) , "Error with different length"
 
     mod = len(alpha)
-    pt = str_to_num(pt , alpha)
-    ct = str_to_num(ct , alpha)
+    pt = str2num(pt , alpha)
+    ct = str2num(ct , alpha)
 
     ct = list2arr(ct , key_len , key_len)
     pt = list2arr(pt , key_len , key_len)
@@ -130,4 +133,5 @@ if __name__ == "__main__" :
     key = known_plain(p1 , c1 , alpha , 3).flatten().tolist()
 
     print(hill_decrypt(key , c2 , alpha))
+
 
