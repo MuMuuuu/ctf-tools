@@ -13,23 +13,27 @@ def gcd(a:int , b:int):
 
 def inverse(s , t):
     """
-    The inverse of :data:`u` *mod* :data:`v`.
+    Find inverse of s under mod t
     """
 
     if(gcd(s , t) - 1):
         raise ZeroDivisionError
 
-    s3, t3 = s , t
-    s1, t1 = 1, 0
+    s3 , t3 = s , t
+    s1 , t1 = 1 , 0
     while t3 > 0:
         q = s3 // t3
-        s1, t1 = t1, s1 - t1 * q
-        s3, t3 = t3, s3 - t3 * q
-    while s1<0:
+        s1 , t1 = t1 , s1 - t1 * q
+        s3 , t3 = t3 , s3 - t3 * q
+    while s1 < 0:
         s1 = s1 + t
     return s1
 
 def list2arr(ls:list , row:int , col:int):
+    """
+    Change list into square matrix
+    """
+
     return np.array(ls).reshape(row , col)
 
 def arr2list(arr:np.ndarray):
@@ -77,6 +81,11 @@ def str2num(s:str , alpha:str):
     return res
 
 def matrix_inverse(arr:np.ndarray , mod:int):
+    """
+    arr->np.ndarray : input array to find inverse matrix
+    mod->int
+    """
+
     assert mod > 0 , "mod should greater than 0"
 
     adj = np.linalg.inv(arr).dot(np.linalg.det(arr))
@@ -96,6 +105,11 @@ def matrix_inverse(arr:np.ndarray , mod:int):
     return res
 
 def hill_decrypt(key , cipher:str , alpha=printable[:62]+"_"):
+    """
+    key->list : flatten encryption key
+    cipher->str
+    """
+
     mod = len(alpha)
     row = col = int(pow(len(key) , 0.5))
 
