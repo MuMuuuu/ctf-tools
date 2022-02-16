@@ -17,7 +17,7 @@ def CRT(r, mod):
 
 n = []
 c = []
-e = 
+e = len(n)
 
 m = CRT(c , n)
 print(long_to_bytes(iroot(m , e)[0]).decode("latin-1"))
