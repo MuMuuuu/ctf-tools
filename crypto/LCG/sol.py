@@ -1,44 +1,48 @@
 #!/usr/bin/python3
-from gmpy2 import *
+
 from functools import reduce
-import math
 
-"""
-https://github.com/Macmod/lcgcrack/blob/master/lcgcrackmultiples.py
-"""
+def gcd(a , b):
+    a , b = abs(a) , abs(b)
+    if b == 0:
+        return a
+    else:
+        return gcd(b , a % b)
 
-def _crack_unknown_increment(states, modulus, multiplier):
-    increment = (states[1] - states[0]*multiplier) % modulus
-    return modulus, multiplier, increment
+def ext_gcd(a , b):
+    if a == 0:
+        return (b , 0 , 1)
+    else:
+        g, x, y = ext_gcd(b % a , a)
+        return (g , y - (b // a) * x , x)
 
-def _crack_unknown_multiplier(states, modulus):
-    a = (states[2] - states[1])
-    inv = int(invert(states[1]-states[0] % modulus, modulus))
-    multiplier = (a * inv) % modulus
-    return _crack_unknown_increment(states, modulus, multiplier)
+def invert(a , n):
+    g, x, _ = ext_gcd(a , n)
+    if g == 1:
+        return x % n
+    else:
+        raise Exception("None of inverse exist")
 
-def _crack_unknown_modulus(states):
-    diffs = [s1 - s0 for s0, s1 in zip(states, states[1:])]
-    zeroes = [t2*t0 - t1*t1 for t0, t1, t2 in zip(diffs, diffs[1:],diffs[2:])]
-    modulus = abs(reduce(lambda x,y: math.gcd(x,y),zeroes))
-    return _crack_unknown_multiplier(states, modulus)
+def find_inc(states , mod , mul):
+    s0 , s1 = states[:2]
+    inc = (s1 - (s0 * mul)) % mod
+    return inc
 
-def crack(seq):
-    return _crack_unknown_modulus(seq)
+def find_mul(states , mod):
+    s0 , s1 , s2 = states[:3]
+    mul = (s2 - s1) * invert(s1 - s0 , mod)
+    return mul
 
-def next_state(s0 , m , inc , n):
-    return (m * s0 + inc) % n
+def find_mod(states):
+    subs = [b - a for a , b in zip(states , states[1:])]
+    zero = [t2 * t0 - t1 * t1 for t0 , t1 , t2 in zip(subs[:-2] , subs[1:-1] , subs[2:])]
+    mod = reduce(lambda a , b : gcd(a , b) , zero)
+    return mod
 
-ls = []
+def next_state(state , mod , mul , inc):
+    return (state * mul + inc) % mod
 
-seed = ls[0]
-new = [seed]
-n , m , inc = crack(ls)
 
-assert next_state(seed , m , inc , n) == ls[1]
 
-for i in range(100):
-    seed = next_state(seed , m , inc , n)
-    new.append(seed)
 
 
